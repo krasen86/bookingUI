@@ -1,14 +1,17 @@
 <template>
-  <div>
-    <p>Hello guys</p>
-    <div v-for="dentist in dentists" :key="dentist.id">{{ dentist.name }}</div>
+  <div id="container">
+    <Map></Map>
   </div>
 </template>
 
 <script>
+import Map from '@/components/Map.vue'
 
 export default {
   name: "Home",
+  components: {
+    Map: Map
+  },
   data() {
     return {
       dentists: []
@@ -30,5 +33,8 @@ export default {
 </script>
 
 <style scoped>
-
+  #container {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
 </style>
