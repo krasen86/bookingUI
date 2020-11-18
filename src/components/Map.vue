@@ -9,7 +9,8 @@ export default {
   name: "Map",
   data() {
     return {
-      myMap: Map
+      myMap: Map,
+      dentists: [],
     }
   },
   mounted() {
@@ -37,10 +38,20 @@ export default {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZWVtaWxndXNlIiwiYSI6ImNraG44czlpazBkZGUyc2wxYXRmdDNzd3IifQ.X7rb29PK55Oi8EZ8XQ6jtw'
       }).addTo(this.myMap);
-
-      L.marker([57.7089, 11.9746], {Icon: L.Icon.default}).addTo(this.myMap);
     },
     setDentistMarkers() {
+      // TODO: needs refinement
+
+      this.dentists = this.$store.state.dentist.dentists
+      console.log(this.dentists);
+
+      for ( let i = 0; i < this.dentists.length; i++) {
+        let latitude = this.dentist[i].coordinates.latitude;
+        let longitude = this.dentist[i].coordinates.longitude;
+        console.log(latitude + longitude)
+        //L.marker([latitude, longitude], {Icon: L.Icon.default}).addTo(this.myMap);
+      }
+
     }
   }
 }

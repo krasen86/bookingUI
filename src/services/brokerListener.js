@@ -9,8 +9,8 @@ export default class BrokerListener {
     listenForMessage() {
         MQTT.on('message', function (topic, message) {
             // message is Buffer
-            console.log(topic.toString())
-            console.log(message.toString())
+            // console.log(topic.toString())
+            // console.log(message.toString())
             if (topic === mqttVariables.DENTISTTOPIC) {
                 const buffer = message.toString('utf-8');
                 store.dispatch('addDentists', JSON.parse(buffer));

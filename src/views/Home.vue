@@ -11,23 +11,6 @@ export default {
   name: "Home",
   components: {
     Map: Map
-  },
-  data() {
-    return {
-      dentists: []
-    }
-  },
-  computed: {
-    getDentists() {
-      return this.setDentists();
-    }
-  },
-  methods: {
-    setDentists() {
-      this.dentists = this.$store.state.dentist.dentists.dentists;
-      console.log(this.dentists)
-      return this.dentists;
-    }
   }
 }
 </script>
