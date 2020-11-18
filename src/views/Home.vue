@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <p>Hello guys</p>
+  <div class="container">
+    <Map></Map>
   </div>
 </template>
 
 <script>
+import Map from '@/components/Map.vue'
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    Map: Map
+  }
 }
 </script>
 
