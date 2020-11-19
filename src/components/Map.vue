@@ -10,12 +10,25 @@ export default {
   data() {
     return {
       myMap: Map,
-      dentists: [],
+      markerGroup: {}
+    }
+  },
+  computed: {
+    clinics() {
+      return this.$store.state.dentist;
+    }
+  },
+  watch: {
+    'clinics': {
+      deep: true,
+      handler() {
+        console.log('changed')
+        this.setDentistMarkers()
+      }
     }
   },
   mounted() {
-    this.initiateMap()
-    this.setDentistMarkers()
+    this.initiateMap();
 
     /* Setup to make markers show */
     delete Icon.Default.prototype._getIconUrl;
@@ -38,20 +51,19 @@ export default {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZWVtaWxndXNlIiwiYSI6ImNraG44czlpazBkZGUyc2wxYXRmdDNzd3IifQ.X7rb29PK55Oi8EZ8XQ6jtw'
       }).addTo(this.myMap);
+      this.markerGroup = L.layerGroup().addTo(this.myMap);
     },
     setDentistMarkers() {
       // TODO: needs refinement
-
-      this.dentists = this.$store.state.dentist.dentists
-      console.log(this.dentists);
-
-      for ( let i = 0; i < this.dentists.length; i++) {
-        let latitude = this.dentist[i].coordinates.latitude;
-        let longitude = this.dentist[i].coordinates.longitude;
-        console.log(latitude + longitude)
-        //L.marker([latitude, longitude], {Icon: L.Icon.default}).addTo(this.myMap);
+      let clinicList = this.clinics.dentists;
+      console.log(clinicList);
+      this.markerGroup.clearLayers();
+      for ( let i = 0; i < clinicList.length; i++) {
+        let latitude = clinicList[i].coordinate.latitude;
+        let longitude = clinicList[i].coordinate.longitude;
+        console.log(latitude +' '+ longitude)
+        L.marker([ longitude, latitude]).addTo(this.markerGroup);
       }
-
     }
   }
 }
