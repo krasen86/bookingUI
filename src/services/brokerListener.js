@@ -1,19 +1,15 @@
-import {MQTT} from './mqttConnector';
+import {MQTT} from './mqtt';
 import {mqttVariables} from "@/config/mqttVariables";
-import store from "../store"
-
+import DentistController from "@/services/dentistController";
 
 export default class BrokerListener {
     constructor() {
     }
     listenForMessage() {
         MQTT.on('message', function (topic, message) {
-            // message is Buffer
-            // console.log(topic.toString())
-            // console.log(message.toString())
-            if (topic === mqttVariables.DENTISTTOPIC) {
-                const buffer = message.toString('utf-8');
-                store.dispatch('dentist/addDentists', JSON.parse(buffer));
+            if (topic === mqttVariables.DENTIST_TOPIC) {
+                const dentistController = new DentistController();
+                dentistController.processMessage(message);
             }
         })
     }

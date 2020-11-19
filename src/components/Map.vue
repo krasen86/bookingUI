@@ -22,8 +22,7 @@ export default {
     'clinics': {
       deep: true,
       handler() {
-        console.log('changed')
-        this.setDentistMarkers()
+        this.setDentistMarkers();
       }
     }
   },
@@ -51,17 +50,15 @@ export default {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZWVtaWxndXNlIiwiYSI6ImNraG44czlpazBkZGUyc2wxYXRmdDNzd3IifQ.X7rb29PK55Oi8EZ8XQ6jtw'
       }).addTo(this.myMap);
+      // create a marker group for all markers in order to be able to refresh the markers on the map
       this.markerGroup = L.layerGroup().addTo(this.myMap);
     },
     setDentistMarkers() {
-      // TODO: needs refinement
       let clinicList = this.clinics.dentists;
-      console.log(clinicList);
       this.markerGroup.clearLayers();
       for ( let i = 0; i < clinicList.length; i++) {
         let latitude = clinicList[i].coordinate.latitude;
         let longitude = clinicList[i].coordinate.longitude;
-        console.log(latitude +' '+ longitude)
         L.marker([ longitude, latitude]).addTo(this.markerGroup);
       }
     }

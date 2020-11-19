@@ -1,4 +1,4 @@
-import {MQTT} from './mqttConnector';
+import {MQTT} from './mqtt';
 
 export default class Subscriber {
     constructor() {

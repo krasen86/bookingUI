@@ -9,7 +9,7 @@ export default class BrokerConnector {
         const subscriber = new Subscriber();
         const brokerListener = new BrokerListener();
         subscriber.connectToBroker();
-        subscriber.subscribeToTopic(mqttVariables.DENTISTTOPIC);
+        subscriber.subscribeToTopic(mqttVariables.DENTIST_TOPIC);
         brokerListener.listenForMessage();
     }
 
