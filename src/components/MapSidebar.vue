@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-button class="buttontest" v-b-toggle.sidebar-variant>Toggle</b-button>
+    <BookingModal ref="BookingModal"></BookingModal>
     <b-sidebar id="sidebar-variant" width="40%"  bg-variant="light" text-variant="dark" shadow>
       <b-container class="container-fluid">
         <h2>Epic clinic</h2>
@@ -22,11 +23,7 @@
       </b-row>
       <b-calendar v-model="value" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" ></b-calendar>
       <div id="timeContainer" class="container">
-        <b-button class ="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
-        <b-button class ="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
-        <b-button class ="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
-        <b-button class ="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
-        <b-button class ="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
+        <b-button @click="openModal" class="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
       </div>
       </b-container>
   </b-sidebar>
@@ -34,8 +31,12 @@
 </template>
 
 <script>
+import BookingModal from '@/components/BookingModal'
 export default {
   name: "MapSidebar",
+  components: {
+    BookingModal: BookingModal
+  },
   data() {
     return {
       value: '',
@@ -53,6 +54,9 @@ export default {
     },
     timeButtons() {
       this.timeVisibility = true
+    },
+    openModal() {
+      this.$refs.BookingModal.show()
     }
   }
 }
