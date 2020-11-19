@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button class="buttontest" v-b-toggle.sidebar-variant>Toggle</b-button>
-    <b-sidebar id="sidebar-variant" width="45em"  bg-variant="light" text-variant="dark" shadow>
+    <b-sidebar id="sidebar-variant" width="40%"  bg-variant="light" text-variant="dark" shadow>
       <b-container class="container-fluid">
         <h2>Epic clinic</h2>
         <b-row>
