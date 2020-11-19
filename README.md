@@ -1,7 +1,13 @@
-# clienttest
+# Dentistimo client 
 
 ## Project setup
-```
+
+### Prerequisites
+    In order to connect to the MQTT broker make sure that the Broker is conrigured to accespt websokets on port 1884
+    ex. For Mosquitto Ecliplse broker add to the mosquitto.conf file
+        listener 1884
+        protocol websockets
+``` 
 npm install
 ```
 
