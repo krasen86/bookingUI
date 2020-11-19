@@ -13,7 +13,7 @@ export default class BrokerListener {
             // console.log(message.toString())
             if (topic === mqttVariables.DENTISTTOPIC) {
                 const buffer = message.toString('utf-8');
-                store.dispatch('addDentists', JSON.parse(buffer));
+                store.dispatch('dentist/addDentists', JSON.parse(buffer));
             }
         })
     }
