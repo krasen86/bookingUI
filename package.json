@@ -1,5 +1,5 @@
 {
-  "name": "clienttest",
+  "name": "dentistimo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,11 @@
   "dependencies": {
     "bootstrap-vue": "^2.19.0",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "leaflet": "^1.7.1",
+    "vue2-leaflet": "^2.6.0",
+    "mqtt": "^4.2.5",
+    "vue": "^2.6.11",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
