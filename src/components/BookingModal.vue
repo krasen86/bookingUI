@@ -29,7 +29,7 @@
           </ValidationProvider>
           <!-- Button -->
           <div class="footer">
-            <b-button type="primary" class="button-styling">Cancel</b-button>
+            <b-button @click="hide()" type="primary" class="button-styling">Cancel</b-button>
             <b-button variant="info" type="submit" :disabled="invalid" class="button-styling">Confirm</b-button>
           </div>
           <div v-if="message">
@@ -56,6 +56,9 @@ export default {
   methods: {
     show() {
       this.showModal = true
+    },
+    hide() {
+      this.showModal = false
     }
   }
 }
