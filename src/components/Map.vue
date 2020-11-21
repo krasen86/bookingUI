@@ -6,7 +6,8 @@
 <script>
   import 'leaflet/dist/leaflet.css'
   import L, {Icon} from 'leaflet'
-export default {
+
+  export default {
   name: "Map",
   data() {
     return {
@@ -64,6 +65,7 @@ export default {
               console.log(e.latlng);
               console.log(clinicList[i]);
               this.$parent.initSidebar();
+              this.$store.dispatch('selected/selectDentist', clinicList[i])
             }
         );
       }

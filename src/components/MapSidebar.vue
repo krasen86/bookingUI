@@ -3,24 +3,22 @@
     <BookingModal ref="BookingModal"></BookingModal>
     <b-sidebar v-model="sidebarCheck" id="sidebar-variant" width="40%"  bg-variant="light" text-variant="dark" shadow>
       <b-container class="container-fluid">
-        <h2>Epic clinic</h2>
+        <h2>{{selectedClinic.name}}</h2>
         <b-row>
           <div id="clinicInfo" class="col-5">
-            <p>Owner</p>
-            <p>Adress</p>
-            <p>Phone</p>
+            <p>Owner: {{selectedClinic.owner}}</p>
+            <p>Address: {{selectedClinic.address}}</p>
+            <p>City: {{selectedClinic.city}}</p>
           </div>
           <div id="clinicSchedule" class="col-5">
-            <p>Monday: 9:00-19:00</p>
-            <p>Tuesday: 9:00-19:00</p>
-            <p>Wednesday: 9:00-19:00</p>
-            <p>Thursday: 9:00-19:00</p>
-            <p>Friday: 9:00-19:00</p>
-            <p>Saturday: Closed</p>
-            <p>Sunday: Closed</p>
+            <p>Monday: {{openingHours.monday}}</p>
+            <p>Tuesday: {{openingHours.tuesday}}</p>
+            <p>Wednesday: {{openingHours.wednesday}}</p>
+            <p>Thursday: {{openingHours.thursday}}</p>
+            <p>Friday: {{openingHours.friday}}</p>
           </div>
       </b-row>
-      <b-calendar v-model="value" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" ></b-calendar>
+      <b-calendar v-model="value" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" locale="en-us"></b-calendar>
       <div id="timeContainer" class="container">
         <b-button @click="openModal" class="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
       </div>
@@ -45,7 +43,13 @@ export default {
       sidebarCheck: false
     }
   },
-  mounted() {
+  computed: {
+    selectedClinic(){
+      return this.$store.state.selected.selected
+    },
+    openingHours() {
+      return this.selectedClinic.openinghours ? this.$store.state.selected.selected.openinghours : 'Not Available';
+    }
   },
   methods: {
     timeButtons() {
