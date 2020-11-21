@@ -1,29 +1,34 @@
 <template>
   <div>
     <b-modal v-model="showModal" id="modal-1" size="lg" title="Confirm Booking" hide-footer>
+      <div class="container">
+        <p>{{selectedClinic.name}}</p>
+        <p>{{selectedClinic.address}}</p>
+        <p>{{date}}</p>
+      </div>
       <ValidationObserver v-slot="{ invalid }">
         <form class="form-styling" @submit.prevent="onConfirm">
           <!-- Name -->
           <ValidationProvider name="name" rules="required|alpha" v-slot="{ errors }">
             <div class="form-group">
-              <label>Name</label>
-              <input name="name" type="text" class="form-control" v-model="name"/>
+              <label for="name">Name</label>
+              <input name="name" id="name" type="text" class="form-control" v-model="name"/>
               <div  v-if="errors[0]" class="alert-danger">{{ errors[0] }}</div>
             </div>
           </ValidationProvider>
           <!-- Email -->
           <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
             <div class="form-group">
-              <label>Email</label>
-              <input name="email" type="email" class="form-control" v-model="email"/>
+              <label for="email">Email</label>
+              <input name="email" id="email" type="email" class="form-control" v-model="email"/>
               <div  v-if="errors[0]" class="alert-danger">{{ errors[0] }}</div>
             </div>
           </ValidationProvider>
           <!-- Phone -->
           <ValidationProvider name="phone" rules="required|alpha_num" v-slot="{ errors }">
             <div class="form-group">
-              <label>Phone</label>
-              <input name ="phone" type="text" class="form-control" v-model="phone"/>
+              <label for="phone">Phone</label>
+              <input name ="phone" id="phone" type="text" class="form-control" v-model="phone"/>
               <div v-if="errors[0]" class="alert-danger"> {{ errors[0] }}</div>
             </div>
           </ValidationProvider>
@@ -50,12 +55,19 @@ export default {
       showModal: false,
       name: '',
       email: '',
-      phone: ''
+      phone: '',
+      date: '',
+    }
+  },
+  computed: {
+    selectedClinic() {
+      return this.$store.state.selected.selected
     }
   },
   methods: {
-    show() {
+    show(date) {
       this.showModal = true
+      this.date = date
     },
     hide() {
       this.showModal = false

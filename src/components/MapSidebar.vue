@@ -18,9 +18,9 @@
             <p>Friday: {{openingHours.friday}}</p>
           </div>
       </b-row>
-      <b-calendar v-model="value" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" locale="en-us"></b-calendar>
+      <b-calendar v-model="date" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" locale="en-us"></b-calendar>
       <div id="timeContainer" class="container">
-        <b-button @click="openModal" class="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
+        <b-button @click="openModal(date)" class="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
       </div>
       </b-container>
   </b-sidebar>
@@ -36,11 +36,12 @@ export default {
   },
   data() {
     return {
-      value: '',
+      date: '',
       minDate: new Date(Date.now()),
       startDay: 1,
       timeVisibility: false,
-      sidebarCheck: false
+      sidebarCheck: false,
+      bookingCheck: false
     }
   },
   computed: {
@@ -55,8 +56,8 @@ export default {
     timeButtons() {
       this.timeVisibility = true
     },
-    openModal() {
-      this.$refs.BookingModal.show()
+    openModal(date) {
+      this.$refs.BookingModal.show(date)
     },
     showSidebar(){
       this.sidebarCheck = true
