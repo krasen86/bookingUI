@@ -9,12 +9,25 @@ export default {
   name: "Map",
   data() {
     return {
-      myMap: Map
+      myMap: Map,
+      markerGroup: {}
+    }
+  },
+  computed: {
+    clinics() {
+      return this.$store.state.dentist;
+    }
+  },
+  watch: {
+    'clinics': {
+      deep: true,
+      handler() {
+        this.setDentistMarkers();
+      }
     }
   },
   mounted() {
-    this.initiateMap()
-    this.setDentistMarkers()
+    this.initiateMap();
 
     /* Setup to make markers show */
     delete Icon.Default.prototype._getIconUrl;
@@ -37,10 +50,17 @@ export default {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZWVtaWxndXNlIiwiYSI6ImNraG44czlpazBkZGUyc2wxYXRmdDNzd3IifQ.X7rb29PK55Oi8EZ8XQ6jtw'
       }).addTo(this.myMap);
-
-      L.marker([57.7089, 11.9746], {Icon: L.Icon.default}).addTo(this.myMap);
+      // create a marker group for all markers in order to be able to refresh the markers on the map
+      this.markerGroup = L.layerGroup().addTo(this.myMap);
     },
     setDentistMarkers() {
+      let clinicList = this.clinics.dentists;
+      this.markerGroup.clearLayers();
+      for ( let i = 0; i < clinicList.length; i++) {
+        let latitude = clinicList[i].coordinate.latitude;
+        let longitude = clinicList[i].coordinate.longitude;
+        L.marker([ longitude, latitude]).addTo(this.markerGroup);
+      }
     }
   }
 }
