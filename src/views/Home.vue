@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <ConfirmationModal></ConfirmationModal>
-    <MapSidebar></MapSidebar>
+    <MapSidebar ref="MapSidebar"></MapSidebar>
     <Map></Map>
   </div>
 </template>
@@ -17,6 +17,11 @@ export default {
     Map: Map,
     MapSidebar: MapSidebar,
     ConfirmationModal: ConfirmationModal
+  },
+  methods: {
+    initSidebar() {
+      this.$refs.MapSidebar.showSidebar()
+    }
   }
 }
 </script>

@@ -1,8 +1,7 @@
 <template>
   <div>
-    <b-button class="buttontest" v-b-toggle.sidebar-variant>Toggle</b-button>
     <BookingModal ref="BookingModal"></BookingModal>
-    <b-sidebar id="sidebar-variant" width="40%"  bg-variant="light" text-variant="dark" shadow>
+    <b-sidebar v-model="sidebarCheck" id="sidebar-variant" width="40%"  bg-variant="light" text-variant="dark" shadow>
       <b-container class="container-fluid">
         <h2>Epic clinic</h2>
         <b-row>
@@ -40,23 +39,23 @@ export default {
   data() {
     return {
       value: '',
-      minDate: Date,
+      minDate: new Date(Date.now()),
       startDay: 1,
-      timeVisibility: false
+      timeVisibility: false,
+      sidebarCheck: false
     }
   },
   mounted() {
-    this.getDate()
   },
   methods: {
-    getDate() {
-      this.minDate = new Date(Date.now())
-    },
     timeButtons() {
       this.timeVisibility = true
     },
     openModal() {
       this.$refs.BookingModal.show()
+    },
+    showSidebar(){
+      this.sidebarCheck = true
     }
   }
 }

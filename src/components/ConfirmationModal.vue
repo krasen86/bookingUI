@@ -16,7 +16,7 @@ export default {
   name: "ConfirmationModal",
   data(){
   return {
-    showModal: true,
+    showModal: false,
     bookingMessage: "Your booking has been made!"
   }},
   methods: {

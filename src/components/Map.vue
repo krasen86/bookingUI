@@ -1,5 +1,6 @@
 <template>
-  <div id="mapContainer"></div>
+  <div id="mapContainer">
+  </div>
 </template>
 
 <script>
@@ -59,7 +60,12 @@ export default {
       for ( let i = 0; i < clinicList.length; i++) {
         let latitude = clinicList[i].coordinate.latitude;
         let longitude = clinicList[i].coordinate.longitude;
-        L.marker([ longitude, latitude]).addTo(this.markerGroup);
+        L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
+              console.log(e.latlng);
+              console.log(clinicList[i]);
+              this.$parent.initSidebar();
+            }
+        );
       }
     }
   }
