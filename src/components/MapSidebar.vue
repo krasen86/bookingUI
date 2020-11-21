@@ -11,11 +11,7 @@
             <p>City: {{selectedClinic.city}}</p>
           </div>
           <div id="clinicSchedule" class="col-5">
-            <p>Monday: {{openingHours.monday}}</p>
-            <p>Tuesday: {{openingHours.tuesday}}</p>
-            <p>Wednesday: {{openingHours.wednesday}}</p>
-            <p>Thursday: {{openingHours.thursday}}</p>
-            <p>Friday: {{openingHours.friday}}</p>
+            <OpeningHours v-bind:opening-hours="openingHours"/>
           </div>
       </b-row>
       <b-calendar v-model="value" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" locale="en-us"></b-calendar>
@@ -29,9 +25,12 @@
 
 <script>
 import BookingModal from '@/components/BookingModal'
+import OpeningHours from "./OpeningHours";
+
 export default {
   name: "MapSidebar",
   components: {
+    OpeningHours,
     BookingModal: BookingModal
   },
   data() {
