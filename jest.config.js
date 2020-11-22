@@ -12,7 +12,7 @@ module.exports = {
   },
   snapshotSerializers: ['jest-serializer-vue'],
   transformIgnorePatterns: ["/node_modules/(?!(leaflet)/)"],
- // "collectCoverage": true,
-  //"collectCoverageFrom": ["**/*.{js,vue}", "!**/node_modules/**"]
+  "collectCoverage": true,
+  "collectCoverageFrom": ["**/*.{js,vue}", "!**/node_modules/**"]
 };
 
