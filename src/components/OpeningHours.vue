@@ -13,7 +13,10 @@
 <script>
     export default {
         name: "OpeningHours",
-        props: ['openingHours']
+        props: ['openingHours'],
+        data () {
+          return {}
+        }
     }
 </script>
 
