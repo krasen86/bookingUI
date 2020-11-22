@@ -13,6 +13,7 @@ build:
     - docker
   script:
     - npm install
+    - npm build
 
 test:
   stage: test
@@ -20,3 +21,4 @@ test:
     - docker
   script:
     - echo "----- Test Running -----"
+    - npm run test:unit
