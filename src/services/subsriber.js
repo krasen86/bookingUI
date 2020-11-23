@@ -10,6 +10,7 @@ export default class Subscriber {
     }
 
     subscribeToTopic(topic) {
+        console.log(topic)
         MQTT.subscribe(topic, function () {
             console.log('Subscribed ' + topic)
         })

@@ -63,9 +63,8 @@
         let longitude = clinicList[i].coordinate.longitude;
         L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
-              console.log(clinicList[i]);
               this.$parent.initSidebar();
-              this.$store.dispatch('selected/selectDentist', clinicList[i])
+              this.$store.dispatch('selected/selectDentist', clinicList[i]);
             }
         );
       }
