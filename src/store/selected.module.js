@@ -20,7 +20,7 @@ export const selected = {
             state.selected = dentist;
         },
         availabilityAdded(state, availability) {
-            state.selected.availablity = availability;
+            state.selected.availablity = availability.availability;
         }
     }
 }
