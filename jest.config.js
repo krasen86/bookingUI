@@ -11,6 +11,7 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   snapshotSerializers: ['jest-serializer-vue'],
+  setupFilesAfterEnv: ["<rootDir>/tests/unit/index.js"],
   transformIgnorePatterns: ["/node_modules/(?!(leaflet)/)"],
   "collectCoverage": true,
   "collectCoverageFrom": ['src/**/*.{js,vue}', "!**/node_modules/**"]
