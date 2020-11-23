@@ -6,21 +6,28 @@ export const selected = {
     }),
     namespaced: true,
     actions: {
-        selectDentist({commit}, dentist) {
-            commit('dentistSelected', dentist)
+        selectClinic({commit}, clinic) {
+            commit('dentistSelected', clinic)
             let availabilityController = new AvailabilityController();
             availabilityController.subscribeAvailability();
         },
         addAvailability({commit}, availability) {
-            commit('availabilityAdded', availability)
+            commit('availabilityAdded', availability.availability)
+        },
+        removeClinic({commit}){
+            commit('clinicRemoved')
+
         }
     },
     mutations: {
-        dentistSelected(state, dentist){
-            state.selected = dentist;
+        dentistSelected(state, clinic){
+            state.selected = clinic;
         },
         availabilityAdded(state, availability) {
-            state.selected.availablity = availability.availability;
+            state.selected.availablity = availability;
+        },
+        clinicRemoved(state) {
+            state.selected = {}
         }
     }
 }

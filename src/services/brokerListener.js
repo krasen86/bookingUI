@@ -14,8 +14,6 @@ export default class BrokerListener {
                 const dentistController = new DentistController();
                 dentistController.processMessage(message);
             }
-            const buffer = message.toString('utf-8');
-            console.log(buffer)
             if (topic === "availability/" + availabilityController.getCurrentClinicID()) {
                 availabilityController.addAvailability(message);
             }
