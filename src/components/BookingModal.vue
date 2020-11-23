@@ -5,6 +5,7 @@
         <p>{{selectedClinic.name}}</p>
         <p>{{selectedClinic.address}}</p>
         <p>{{date}}</p>
+        <p>{{time}}</p>
       </div>
       <ValidationObserver v-slot="{ invalid }">
         <form class="form-styling" @submit.prevent="onConfirm">
@@ -54,6 +55,7 @@ export default {
       email: '',
       phone: '',
       date: '',
+      time: ''
     }
   },
   computed: {
@@ -62,12 +64,16 @@ export default {
     }
   },
   methods: {
-    show(date) {
+    show(date, time) {
       this.showModal = true
       this.date = date
+      this.time = time
     },
     hide() {
       this.showModal = false
+    },
+    onConfirm(){
+      console.log("Confirmed")
     }
   }
 }
