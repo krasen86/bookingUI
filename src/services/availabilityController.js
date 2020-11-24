@@ -17,4 +17,8 @@ export default class DentistController {
         let subscriber = new Subscriber();
         subscriber.subscribeToTopic("availability/" + this.getCurrentClinicID());
     }
+    unSubscribeAvailability(id) {
+        let subscriber = new Subscriber();
+        subscriber.topicUnSubscriber("availability/" + id);
+    }
 }

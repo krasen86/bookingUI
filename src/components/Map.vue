@@ -64,8 +64,11 @@
         let marker = L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
               this.$parent.initSidebar();
-              this.$store.dispatch('selected/selectClinic', clinicList[i]);
-            }
+          if (this.$store.state.selected.selected) {
+            this.$store.dispatch('selected/removeClinic', this.$store.state.selected.selected.id);
+          }
+          this.$store.dispatch('selected/selectClinic', clinicList[i]);
+        }
         );
         marker.bindPopup(clinicList[i].name);
         marker.on('mouseover',  (e) => {

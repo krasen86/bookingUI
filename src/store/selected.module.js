@@ -2,9 +2,14 @@ import AvailabilityController from '@/services/availabilityController'
 
 export const selected = {
     state:  () => ({
-        selected: {}
+        selected: {},
     }),
     namespaced: true,
+    getters: {
+        getAvailability(state) {
+            return state.selected.availability
+        }
+    },
     actions: {
         selectClinic({commit}, clinic) {
             commit('dentistSelected', clinic)
@@ -14,7 +19,9 @@ export const selected = {
         addAvailability({commit}, availability) {
             commit('availabilityAdded', availability.availability)
         },
-        removeClinic({commit}){
+        removeClinic({commit}, id){
+            let availabilityController = new AvailabilityController();
+            availabilityController.unSubscribeAvailability(id);
             commit('clinicRemoved')
 
         }
@@ -24,7 +31,7 @@ export const selected = {
             state.selected = clinic;
         },
         availabilityAdded(state, availability) {
-            state.selected.availablity = availability;
+            state.selected.availability = availability;
         },
         clinicRemoved(state) {
             state.selected = {}

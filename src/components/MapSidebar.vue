@@ -47,14 +47,11 @@ export default {
     }
   },
   watch: {
-    'selectedClinic': {
+    '$store.state.selected.selected.availability': {
       deep: true,
       handler() {
-        this.timeSlots = []
-        if (this.clinicAvailability && this.date) {
+          console.log("Called")
           this.displayTimeSlots()
-        }
-
       }
     }
   },
@@ -63,7 +60,7 @@ export default {
       return this.$store.state.selected.selected
     },
     clinicAvailability(){
-      return this.$store.state.selected.selected.availablity
+      return this.$store.getters["selected/getAvailability"]
     },
     openingHours() {
       return this.selectedClinic.openinghours ? this.$store.state.selected.selected.openinghours : 'Not Available';
@@ -71,9 +68,9 @@ export default {
   },
   methods: {
     displayTimeSlots() {
-      if (this.clinicAvailability && this.date) {
-        for (let i = 0; i < this.clinicAvailability.length; i += 1) {
-          let tempSlots = this.clinicAvailability[i];
+      if (this.$store.state.selected.selected.availability && this.date) {
+        for (let i = 0; i < this.$store.state.selected.selected.availability.length; i += 1) {
+          let tempSlots = this.$store.state.selected.selected.availability[i];
           if (tempSlots[this.date] !== undefined ){
             this.timeSlots = tempSlots[this.date];
           }
