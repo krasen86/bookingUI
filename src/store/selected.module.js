@@ -1,4 +1,5 @@
 import AvailabilityController from '@/services/availabilityController'
+import Vue from 'vue'
 
 export const selected = {
     state:  () => ({
@@ -31,7 +32,8 @@ export const selected = {
             state.selected = clinic;
         },
         availabilityAdded(state, availability) {
-            state.selected.availability = availability;
+            Vue.set(state.selected, 'availability', availability)
+            //state.selected.availability = availability;
         },
         clinicRemoved(state) {
             state.selected = {}

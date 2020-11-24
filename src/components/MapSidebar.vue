@@ -47,12 +47,13 @@ export default {
     }
   },
   watch: {
-    '$store.state.selected.selected.availability': {
-      deep: true,
+    clinicAvailability: {
       handler() {
           console.log("Called")
           this.displayTimeSlots()
-      }
+      },
+      deep: true,
+      immediate:true
     }
   },
   computed: {
