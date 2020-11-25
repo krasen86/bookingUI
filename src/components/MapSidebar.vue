@@ -49,7 +49,6 @@ export default {
   watch: {
     clinicAvailability: {
       handler() {
-          console.log("Called")
           this.displayTimeSlots()
       },
       deep: true,
@@ -69,14 +68,12 @@ export default {
   },
   methods: {
     displayTimeSlots() {
+      this.timeSlots = {};
       if (this.$store.state.selected.selected.availability && this.date) {
         for (let i = 0; i < this.$store.state.selected.selected.availability.length; i += 1) {
           let tempSlots = this.$store.state.selected.selected.availability[i];
           if (tempSlots[this.date] !== undefined ){
             this.timeSlots = tempSlots[this.date];
-          }
-          else {
-            this.timeSlots = [];
           }
         }
       }
