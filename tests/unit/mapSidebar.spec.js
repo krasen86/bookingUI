@@ -18,18 +18,26 @@ const clinicMock = {
     "coordinate": {
         "latitude": 11.969388,
         "longitude": 57.707619
-    }
+    },
+    "availability": []
 }
 describe('MapSidebar.vue', () => {
 
     it('Renders map sidebar', () => {
         const wrapper = shallowMount(MapSidebar, {
+            watch: {
+                clinicAvailability: {
+                }
+            },
             computed: {
                 selectedClinic(){
                     return clinicMock;
                 },
                 openingHours() {
                     return openingHoursMock;
+                },
+                clinicAvailability() {
+                    return clinicMock.availability;
                 }
             }
         })
