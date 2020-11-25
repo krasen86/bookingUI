@@ -18,7 +18,7 @@ export const selected = {
             availabilityController.subscribeAvailability();
         },
         addAvailability({commit}, availability) {
-            commit('availabilityAdded', availability.availability)
+            commit('availabilityAdded', availability)
         },
         removeClinic({commit}, id){
             let availabilityController = new AvailabilityController();
