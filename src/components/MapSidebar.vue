@@ -6,9 +6,7 @@
         <h2>{{selectedClinic.name}}</h2>
         <b-row>
           <div id="clinicInfo" class="col-5">
-            <p>Owner: {{selectedClinic.owner}}</p>
-            <p>Address: {{selectedClinic.address}}</p>
-            <p>City: {{selectedClinic.city}}</p>
+            <ClinicInformation v-bind:clinic-information="selectedClinic"/>
           </div>
           <div id="clinicSchedule" class="col-5">
             <OpeningHours v-bind:opening-hours="openingHours"/>
@@ -26,10 +24,12 @@
 <script>
 import BookingModal from '@/components/BookingModal'
 import OpeningHours from "./OpeningHours";
+import ClinicInformation from "./ClinicInformation";
 
 export default {
   name: "MapSidebar",
   components: {
+    ClinicInformation,
     OpeningHours,
     BookingModal: BookingModal
   },
