@@ -89,7 +89,7 @@ export default {
     },
     checkIfAvailable(time) {
       let valuesArray = Object.values(time);
-      return valuesArray[0]
+      return !(valuesArray[0] > 0)
     }
   }
 }

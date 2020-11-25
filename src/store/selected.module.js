@@ -33,7 +33,6 @@ export const selected = {
         },
         availabilityAdded(state, availability) {
             Vue.set(state.selected, 'availability', availability)
-            //state.selected.availability = availability;
         },
         clinicRemoved(state) {
             state.selected = {}
