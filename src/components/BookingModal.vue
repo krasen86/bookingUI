@@ -37,9 +37,6 @@
             <b-button @click="hide()" type="primary" class="button-styling">Cancel</b-button>
             <b-button variant="info" type="submit" :disabled="invalid" class="button-styling">Confirm</b-button>
           </div>
-          <div v-if="message">
-            <div class="alert alert-danger">{{message}}</div>
-          </div>
         </form>
       </ValidationObserver>
 
