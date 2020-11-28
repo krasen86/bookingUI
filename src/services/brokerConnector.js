@@ -1,6 +1,6 @@
-import Subscriber from "@/services/subsriber";
+import Subscriber from "@/services/subscriber";
 import BrokerListener from "@/services/brokerListener";
-import {mqttVariables} from "@/config/mqttVariables";
+import {variables} from "@/config/variables";
 
 export default class BrokerConnector {
     constructor() {
@@ -9,7 +9,7 @@ export default class BrokerConnector {
         const subscriber = new Subscriber();
         const brokerListener = new BrokerListener();
         subscriber.connectToBroker();
-        subscriber.subscribeToTopic(mqttVariables.DENTIST_TOPIC);
+        subscriber.subscribeToTopic(variables.DENTIST_TOPIC);
         brokerListener.listenForMessage();
     }
 
