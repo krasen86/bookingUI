@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-import {mqttVariables} from "@/config/mqttVariables";
+import {variables} from "@/config/variables";
 
 
-export const MQTT = mqtt.connect(mqttVariables.URL);
+export const MQTT = mqtt.connect(variables.URL);

@@ -6,7 +6,8 @@
 In order to connect to the MQTT broker make sure the Broker is configured to accept websockets on port 1884
 - ex. For Mosquitto Eclipse broker add to the mosquitto.conf file 
 
-``` 
+```
+   port 1883
    listener 1884
    protocol websockets
 ``` 

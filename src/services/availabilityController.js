@@ -1,5 +1,5 @@
 import store from "../store"
-import Subscriber from "@/services/subsriber";
+import Subscriber from "@/services/subscriber";
 
 export default class DentistController {
     constructor() {
