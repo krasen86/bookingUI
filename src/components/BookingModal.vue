@@ -5,6 +5,7 @@
         <p>{{selectedClinic.name}}</p>
         <p>{{selectedClinic.address}}</p>
         <p>{{date}}</p>
+        <p>{{time}}</p>
       </div>
       <ValidationObserver v-slot="{ invalid }">
         <form class="form-styling" @submit.prevent="onConfirm">
@@ -37,9 +38,6 @@
             <b-button @click="hide()" type="primary" class="button-styling">Cancel</b-button>
             <b-button variant="info" type="submit" :disabled="invalid" class="button-styling">Confirm</b-button>
           </div>
-          <div v-if="message">
-            <div class="alert alert-danger">{{message}}</div>
-          </div>
         </form>
       </ValidationObserver>
 
@@ -57,6 +55,7 @@ export default {
       email: '',
       phone: '',
       date: '',
+      time: ''
     }
   },
   computed: {
@@ -65,12 +64,16 @@ export default {
     }
   },
   methods: {
-    show(date) {
+    show(date, time) {
       this.showModal = true
       this.date = date
+      this.time = time
     },
     hide() {
       this.showModal = false
+    },
+    onConfirm(){
+      console.log("Confirmed")
     }
   }
 }

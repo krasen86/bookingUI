@@ -6,21 +6,15 @@
         <h2>{{selectedClinic.name}}</h2>
         <b-row>
           <div id="clinicInfo" class="col-5">
-            <p>Owner: {{selectedClinic.owner}}</p>
-            <p>Address: {{selectedClinic.address}}</p>
-            <p>City: {{selectedClinic.city}}</p>
+            <ClinicInformation v-bind:clinic-information="selectedClinic"/>
           </div>
           <div id="clinicSchedule" class="col-5">
-            <p>Monday: {{openingHours.monday}}</p>
-            <p>Tuesday: {{openingHours.tuesday}}</p>
-            <p>Wednesday: {{openingHours.wednesday}}</p>
-            <p>Thursday: {{openingHours.thursday}}</p>
-            <p>Friday: {{openingHours.friday}}</p>
+            <OpeningHours v-bind:opening-hours="openingHours"/>
           </div>
       </b-row>
-      <b-calendar v-model="date" :min="minDate" :start-weekday="startDay" v-on:selected="timeButtons()" locale="en-us"></b-calendar>
-      <div id="timeContainer" class="container">
-        <b-button @click="openModal(date)" class="timeButton" v-if="timeVisibility">19:30-20:00</b-button>
+      <b-calendar v-model="date" :min="minDate" :start-weekday="startDay" :max="maxDate"  v-on:selected="displayTimeSlots()" locale="en-us"></b-calendar>
+      <div id="timeContainer" v-if="timeSlots" class="container">
+        <b-button @click="openModal(date,Object.keys(time)[0])" v-for="(time, index) in timeSlots" :key="index" class="timeButton" :disabled=checkIfAvailable(time)>{{Object.keys(time)[0]}}</b-button>
       </div>
       </b-container>
   </b-sidebar>
@@ -29,38 +23,70 @@
 
 <script>
 import BookingModal from '@/components/BookingModal'
+import OpeningHours from "./OpeningHours";
+import ClinicInformation from "./ClinicInformation";
+
 export default {
   name: "MapSidebar",
   components: {
+    ClinicInformation,
+    OpeningHours,
     BookingModal: BookingModal
   },
   data() {
+    let nextYearDate = new Date()
+    nextYearDate.setFullYear(nextYearDate.getFullYear() + 1)
     return {
       date: '',
       minDate: new Date(Date.now()),
+      maxDate: nextYearDate,
       startDay: 1,
-      timeVisibility: false,
       sidebarCheck: false,
+      timeSlots: [],
       bookingCheck: false
+    }
+  },
+  watch: {
+    clinicAvailability: {
+      handler() {
+          this.displayTimeSlots()
+      },
+      deep: true,
+      immediate:true
     }
   },
   computed: {
     selectedClinic(){
       return this.$store.state.selected.selected
     },
+    clinicAvailability(){
+      return this.$store.getters["selected/getAvailability"]
+    },
     openingHours() {
       return this.selectedClinic.openinghours ? this.$store.state.selected.selected.openinghours : 'Not Available';
     }
   },
   methods: {
-    timeButtons() {
-      this.timeVisibility = true
+    displayTimeSlots() {
+      this.timeSlots = {};
+      if (this.$store.state.selected.selected.availability && this.date) {
+        for (let i = 0; i < this.$store.state.selected.selected.availability.length; i += 1) {
+          let tempSlots = this.$store.state.selected.selected.availability[i];
+          if (tempSlots[this.date] !== undefined ){
+            this.timeSlots = tempSlots[this.date];
+          }
+        }
+      }
     },
-    openModal(date) {
-      this.$refs.BookingModal.show(date)
+    openModal(date, time) {
+      this.$refs.BookingModal.show(date, time)
     },
     showSidebar(){
       this.sidebarCheck = true
+    },
+    checkIfAvailable(time) {
+      let valuesArray = Object.values(time);
+      return !(valuesArray[0] > 0)
     }
   }
 }

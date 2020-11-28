@@ -61,13 +61,20 @@
       for ( let i = 0; i < clinicList.length; i++) {
         let latitude = clinicList[i].coordinate.latitude;
         let longitude = clinicList[i].coordinate.longitude;
-        L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
+        let marker = L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
-              console.log(clinicList[i]);
               this.$parent.initSidebar();
-              this.$store.dispatch('selected/selectDentist', clinicList[i])
-            }
+          if (this.$store.state.selected.selected.id !== undefined) {
+            this.$store.dispatch('selected/removeClinic', this.$store.state.selected.selected.id);
+          }
+          this.$store.dispatch('selected/selectClinic', clinicList[i]);
+        }
         );
+        marker.bindPopup(clinicList[i].name);
+        marker.on('mouseover',  (e) => {
+          console.log(e)
+          marker.openPopup();
+        });
       }
     }
   }
