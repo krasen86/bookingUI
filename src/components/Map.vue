@@ -64,7 +64,7 @@
         let marker = L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
               this.$parent.initSidebar();
-          if (this.$store.state.selected.selected) {
+          if (this.$store.state.selected.selected.id !== undefined) {
             this.$store.dispatch('selected/removeClinic', this.$store.state.selected.selected.id);
           }
           this.$store.dispatch('selected/selectClinic', clinicList[i]);
