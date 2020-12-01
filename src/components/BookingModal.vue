@@ -48,8 +48,9 @@
 <script>
 
   import Publisher from '../services/publisher';
- // import Subscriber from "../services/subscriber";
+  import Subscriber from "../services/subscriber";
   import BookingGenerator from "../services/bookingGenerator";
+  import {variables} from "../config/variables"
 
 export default {
   name: "BookingModal",
@@ -80,11 +81,10 @@ export default {
     onConfirm(){
       let bookingGenerator = new BookingGenerator()
       let publisher = new Publisher()
-      //let subsciber = new Subscriber()
-      console.log("Confirmed")
-      var request = bookingGenerator.createRequest(this.selectedClinic, this.date, this.time)
+      let subsciber = new Subscriber()
+      let request = bookingGenerator.createRequest(this.selectedClinic, this.date, this.time)
       publisher.publishBookingRequest(request)
-     // subsciber.subscribeToTopic(variables.)
+      subsciber.subscribeToTopic(variables.RESPONSE_TOPIC + '/' + request.userid)
       this.hide()
     },
 
