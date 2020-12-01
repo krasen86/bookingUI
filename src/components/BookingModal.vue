@@ -47,7 +47,9 @@
 
 <script>
 
-  import Publisher from '../services/publisher'
+  import Publisher from '../services/publisher';
+ // import Subscriber from "../services/subscriber";
+  import BookingGenerator from "../services/bookingGenerator";
 
 export default {
   name: "BookingModal",
@@ -76,29 +78,16 @@ export default {
       this.showModal = false
     },
     onConfirm(){
+      let bookingGenerator = new BookingGenerator()
+      let publisher = new Publisher()
+      //let subsciber = new Subscriber()
       console.log("Confirmed")
-      this.createRequest()
+      var request = bookingGenerator.createRequest(this.selectedClinic, this.date, this.time)
+      publisher.publishBookingRequest(request)
+     // subsciber.subscribeToTopic(variables.)
       this.hide()
     },
-    createRequest(){
-      let request = {"userid": this.generateUserId(),
-        "requestid": this.generateRequestId(),
-        "dentistid": this.selectedClinic.id,
-        "issuance": this.generateIssuance(),
-        "time": this.date + " " + this.time.split(" ", 1) //split the timeslot string and only keep start time.
-      }
-      let publisher = new Publisher()
-      publisher.publishBookingRequest(request)
-    },
-    generateUserId(){
-      return (Math.round((Date.now() * Math.random()) /10000000))// 5-6 digits
-    },
-    generateRequestId(){
-      return (Math.round((Date.now() * Math.random()) /10000000000))// 2-3 digits
-    },
-    generateIssuance(){
-      return Date.now()
-    }
+
   }
 }
 </script>
