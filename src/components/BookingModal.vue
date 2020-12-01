@@ -47,6 +47,8 @@
 
 <script>
 
+  import Publisher from '../services/publisher'
+
 export default {
   name: "BookingModal",
   data() {
@@ -76,6 +78,7 @@ export default {
     onConfirm(){
       console.log("Confirmed")
       this.createRequest()
+      this.hide()
     },
     createRequest(){
       let request = {"userid": this.generateUserId(),
@@ -84,17 +87,17 @@ export default {
         "issuance": this.generateIssuance(),
         "time": this.date + " " + this.time.split(" ", 1) //split the timeslot string and only keep start time.
       }
-      JSON.stringify(request)
-      console.log(request)
+      let publisher = new Publisher()
+      publisher.publishBookingRequest(request)
     },
     generateUserId(){
-      return ((Date.now() * Math.random()) /10000000).toFixed(0) // 5-6 digits
+      return (Math.round((Date.now() * Math.random()) /10000000))// 5-6 digits
     },
     generateRequestId(){
-      return ((Date.now() * Math.random()) /10000000000).toFixed(0) // 2-3 digits
+      return (Math.round((Date.now() * Math.random()) /10000000000))// 2-3 digits
     },
     generateIssuance(){
-      return (Date.now() * Math.random()).toFixed(0) // 12-13 digits
+      return Date.now()
     }
   }
 }

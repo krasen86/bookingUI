@@ -3,7 +3,7 @@ const {MQTT} = require("./mqtt")
 const fs = require("fs");
 
 
-class Publisher {
+export default class Publisher {
     constructor() {
     }
     publishToBroker(file) {
@@ -11,6 +11,9 @@ class Publisher {
             MQTT.publish(variables.REQUEST_TOPIC, data.toString(), {retain:true});
         })
     }
-}
 
-module.exports.Publisher = Publisher;
+    publishBookingRequest(request){
+        // console.log(request)
+        MQTT.publish(variables.REQUEST_TOPIC + '/', JSON.stringify(request), {/*retain:true*/});
+    }
+}
