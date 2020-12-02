@@ -1,6 +1,6 @@
 export const dentist  = {
     state:  () => ({
-        dentists: {}
+        dentists: []
     }),
     namespaced: true,
     actions: {
