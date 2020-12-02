@@ -1,8 +1,8 @@
 <template>
   <div id="container">
-    <ConfirmationModal></ConfirmationModal>
-    <MapSidebar ref="MapSidebar"></MapSidebar>
-    <Map></Map>
+    <ConfirmationModal/>
+    <MapSidebar ref="MapSidebar"/>
+    <Map/>
   </div>
 </template>
 

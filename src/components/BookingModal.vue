@@ -46,6 +46,7 @@
 </template>
 
 <script>
+
 export default {
   name: "BookingModal",
   data() {
@@ -55,7 +56,7 @@ export default {
       email: '',
       phone: '',
       date: '',
-      time: ''
+      time: '',
     }
   },
   computed: {
@@ -73,7 +74,11 @@ export default {
       this.showModal = false
     },
     onConfirm(){
-      console.log("Confirmed")
+      let clinic = this.selectedClinic
+      let requestDate = this.date
+      let requestTime = this.time
+      this.$store.dispatch('booking/createBookingRequest', {clinic, requestDate, requestTime})
+      this.hide()
     }
   }
 }
