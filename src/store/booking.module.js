@@ -1,4 +1,4 @@
-import ResponseController from "@/services/responseController";
+import BookingController from "@/services/bookingController";
 
 export const booking = {
     state:  () => ({
@@ -19,7 +19,7 @@ export const booking = {
     },
     actions: {
         createBookingRequest({commit}, {clinic, requestDate, requestTime}) {
-            let responseController = new ResponseController()
+            let responseController = new BookingController()
             let request = responseController.generateRequest(clinic, requestDate, requestTime)
             responseController.sendRequest(request)
             commit('bookingRequestAdded', request)

@@ -4,7 +4,7 @@ import Publisher from "@/services/publisher";
 import Subscriber from "@/services/subscriber";
 import {variables} from "@/config/variables";
 
-export default class ResponseController {
+export default class BookingController {
     constructor() {
     }
     checkResponse(message){
