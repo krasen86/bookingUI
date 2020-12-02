@@ -11,9 +11,8 @@
     <div>
       <p>Clinic:</p>
       <p>Clinic Address:</p>
-      <p>Date:</p>
-      <p>Time:</p>
-      <p>Reference:</p>
+      <p>Appointment: {{displayInfo.time}}</p>
+      <p>Reference: {{displayInfo.requestid}}</p>
     </div>
   </b-modal>
   </div>
@@ -39,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({status: 'booking/getBookingStatus'}),
+    ...mapGetters({status: 'booking/getBookingStatus', booking : 'booking/getBooking'}),
     showModal: {
       // getter
       get: function () {
@@ -48,6 +47,9 @@ export default {
       //setter
       set: function() {
       }
+    },
+    displayInfo(){
+      return this.booking.response;
     }
   }
 }

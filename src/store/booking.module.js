@@ -33,9 +33,10 @@ export const booking = {
         }
     },
     mutations: {
-        bookingRequestAdded(state, booking){
+        bookingRequestAdded(state, booking, clinic){
             state.booking.request = booking;
             state.booking.status = 'sent'
+            state.booking.clinic = clinic
         },
         //response
         bookingAdded(state, booking){
