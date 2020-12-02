@@ -1,5 +1,4 @@
-//import RequestController from '@/services/requestController'
-//import Vue from 'vue'
+import ResponseController from "@/services/responseController";
 
 export const booking = {
     state:  () => ({
@@ -15,6 +14,13 @@ export const booking = {
         }
     },
     actions: {
+        createBookingRequest({commit}, {clinic, requestDate, requestTime}) {
+            let responseController = new ResponseController()
+            let request = responseController.generateRequest(clinic, requestDate, requestTime)
+            responseController.sendRequest(request)
+            commit('bookingRequestAdded', request)
+        },
+        //response
         addBooking({commit}, booking) {
             commit('bookingAdded', booking)
         },
@@ -23,8 +29,13 @@ export const booking = {
         }
     },
     mutations: {
+        bookingRequestAdded(state, booking){
+            state.booking.request = booking;
+            state.booking.status = 'sent'
+        },
+        //response
         bookingAdded(state, booking){
-            state.booking = booking;
+            state.booking.response = booking;
             state.booking.status = 'received'
         },
         statusChanged(state, newStatus) {

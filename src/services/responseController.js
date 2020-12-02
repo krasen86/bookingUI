@@ -1,18 +1,32 @@
 import store from "../store";
+import BookingGenerator from "@/services/bookingGenerator";
+import Publisher from "@/services/publisher";
+import Subscriber from "@/services/subscriber";
+import {variables} from "@/config/variables";
+
 export default class ResponseController {
     constructor() {
     }
-
     checkResponse(message){
         const buffer = message.toString('utf-8');
         let responseObject = JSON.parse(buffer)
         if (responseObject.time){
             console.log("Booking successful")
-            // Home.methods.initConfirmationModal()
             store.dispatch('booking/addBooking', responseObject);
         }else {
             console.log("Booking failed")
         }
 
     }
+    generateRequest(clinic, date, time){
+        let bookingGenerator = new BookingGenerator()
+        return bookingGenerator.createRequest(clinic, date, time)
+    }
+    sendRequest(request){
+        let publisher = new Publisher()
+        let subscriber = new Subscriber()
+        publisher.publishBookingRequest(request)
+        subscriber.subscribeToTopic(variables.RESPONSE_TOPIC + '/' + request.userid)
+    }
+
 }

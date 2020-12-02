@@ -47,11 +47,6 @@
 
 <script>
 
-  import Publisher from '../services/publisher';
-  import Subscriber from "../services/subscriber";
-  import BookingGenerator from "../services/bookingGenerator";
-  import {variables} from "../config/variables"
-
 export default {
   name: "BookingModal",
   data() {
@@ -79,15 +74,12 @@ export default {
       this.showModal = false
     },
     onConfirm(){
-      let bookingGenerator = new BookingGenerator()
-      let publisher = new Publisher()
-      let subscriber = new Subscriber()
-      let request = bookingGenerator.createRequest(this.selectedClinic, this.date, this.time)
-      publisher.publishBookingRequest(request)
-      subscriber.subscribeToTopic(variables.RESPONSE_TOPIC + '/' + request.userid)
+      let clinic = this.selectedClinic
+      let requestDate = this.date
+      let requestTime = this.time
+      this.$store.dispatch('booking/createBookingRequest', {clinic, requestDate, requestTime})
       this.hide()
-    },
-
+    }
   }
 }
 </script>

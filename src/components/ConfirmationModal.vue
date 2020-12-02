@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-modal
-          v-model="showModal"
+          v-model="display"
           title="Confirmation Receipt"
           ok-only
           ok-variant="info"
@@ -24,25 +24,44 @@ export default {
   name: "ConfirmationModal",
   data(){
   return {
-    bookingMessage: "Your booking has been made!"
+    bookingMessage: "Your booking has been made!",
+    display : false
   }},
   methods: {
     modalClosed() {
       this.$store.dispatch('booking/changeBookingStatus', 'viewed')
+    },
+    displayStatus(){
+      this.display = true
     }
   },
   computed: {
     showModal: {
       // getter
       get: function () {
-        return this.$store.getters["booking/getBookingStatus"] === 'received';
+        return this.$store.state.booking.status;
       },
       //setter
       set: function() {
       }
     }
   },
+  watch: {
+    showModal: {
+      handler() {
+        console.log("Hello")
+        if (this.$store.state.booking.status === 'received'){
+          this.displayStatus()
+          console.log("Hi")
+        }else{
+          console.log("Boo")
+        }
 
+      },
+      deep: true,
+      immediate: true
+    }
+  }
 }
 </script>
 
