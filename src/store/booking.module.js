@@ -19,9 +19,9 @@ export const booking = {
     },
     actions: {
         createBookingRequest({commit}, {clinic, requestDate, requestTime}) {
-            let responseController = new BookingController()
-            let request = responseController.generateRequest(clinic, requestDate, requestTime)
-            responseController.sendRequest(request)
+            let bookingController = new BookingController()
+            let request = bookingController.generateRequest(clinic, requestDate, requestTime)
+            bookingController.sendRequest(request)
             commit('bookingRequestAdded', request)
         },
         //response

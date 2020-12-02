@@ -11,7 +11,7 @@ export default class BrokerListener {
     listenForMessage() {
         let availabilityController = new AvailabilityController();
         let subscriber = new Subscriber();
-        let responseController = new BookingController()
+        let bookingController = new BookingController()
         console.log(availabilityController.getCurrentClinicID())
         MQTT.on('message', function (topic, message) {
             if (topic === variables.DENTIST_TOPIC) {
@@ -24,7 +24,7 @@ export default class BrokerListener {
             if (topic.substr(0,9) === 'response/') {
                 console.log(message)
                 subscriber.topicUnSubscriber(topic.toString())
-                responseController.checkResponse(message)
+                bookingController.checkResponse(message)
             }
         })
     }
