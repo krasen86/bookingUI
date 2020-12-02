@@ -1,25 +1,64 @@
 <template>
-  <b-modal v-model="showModal" title="Confirmation Receipt" ok-only ok-variant="info">
+  <div>
+  <b-modal
+          v-model="showModal"
+          title="Confirmation Receipt"
+          ok-only
+          ok-variant="info"
+          @hidden="modalClosed()"
+  >
     <p>{{bookingMessage}}</p>
     <div>
-      <p>Clinic:</p>
-      <p>Clinic Address:</p>
-      <p>Date:</p>
-      <p>Time:</p>
-      <p>Reference:</p>
+      <p>Clinic: {{selectedClinic.name}}</p>
+      <p>Clinic Address: {{selectedClinic.address}}</p>
+      <p>Appointment: {{displayInfo.time}}</p>
+      <p>Reference: {{displayInfo.requestid}}</p>
     </div>
   </b-modal>
+  </div>
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex';
+
 export default {
   name: "ConfirmationModal",
   data(){
   return {
-    showModal: false,
-    bookingMessage: "Your booking has been made!"
+    bookingMessage: "Your booking has been made!",
+    display : false
   }},
   methods: {
+    modalClosed() {
+      this.$store.dispatch('booking/changeBookingStatus', 'viewed')
+    },
+    displayStatus(){
+      this.display = !this.display
+    }
+  },
+  computed: {
+    ...mapGetters({status: 'booking/getBookingStatus', booking : 'booking/getBooking'}),
+    showModal: {
+      // getter
+      get: function () {
+        return this.status === 'received';
+      },
+      //setter
+      set: function() {
+      }
+    },
+    displayInfo(){
+      return this.booking.response;
+    },
+    selectedClinic : {
+      get: function () {
+        return this.booking.request.dentistid ? this.getClinics.dentists.find(item => item.id === this.booking.request.dentistid) : ""
+      }
+    },
+    getClinics(){
+      return this.$store.state.dentist
+    }
   }
 }
 </script>

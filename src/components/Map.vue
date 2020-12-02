@@ -71,8 +71,7 @@
         }
         );
         marker.bindPopup(clinicList[i].name);
-        marker.on('mouseover',  (e) => {
-          console.log(e)
+        marker.on('mouseover',  () => {
           marker.openPopup();
         });
       }
