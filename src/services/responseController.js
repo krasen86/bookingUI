@@ -11,7 +11,6 @@ export default class ResponseController {
         const buffer = message.toString('utf-8');
         let responseObject = JSON.parse(buffer)
         if (responseObject.time){
-            console.log("Booking successful")
             store.dispatch('booking/addBooking', responseObject);
         }else {
             console.log("Booking failed")

@@ -2,7 +2,11 @@ import ResponseController from "@/services/responseController";
 
 export const booking = {
     state:  () => ({
-        booking: {},
+        booking: {
+            response: {},
+            request: {},
+            status: {}
+        },
     }),
     namespaced: true,
     getters: {

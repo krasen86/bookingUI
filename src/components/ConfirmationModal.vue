@@ -20,6 +20,9 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex';
+
 export default {
   name: "ConfirmationModal",
   data(){
@@ -32,14 +35,15 @@ export default {
       this.$store.dispatch('booking/changeBookingStatus', 'viewed')
     },
     displayStatus(){
-      this.display = true
+      this.display = !this.display
     }
   },
   computed: {
+    ...mapGetters({status: 'booking/getBookingStatus'}),
     showModal: {
       // getter
       get: function () {
-        return this.$store.state.booking.status;
+        return this.status;
       },
       //setter
       set: function() {
@@ -49,14 +53,9 @@ export default {
   watch: {
     showModal: {
       handler() {
-        console.log("Hello")
-        if (this.$store.state.booking.status === 'received'){
+        if (this.status ==='received'){
           this.displayStatus()
-          console.log("Hi")
-        }else{
-          console.log("Boo")
         }
-
       },
       deep: true,
       immediate: true
