@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-modal
-          v-model="display"
+          v-model="showModal"
           title="Confirmation Receipt"
           ok-only
           ok-variant="info"
@@ -43,22 +43,11 @@ export default {
     showModal: {
       // getter
       get: function () {
-        return this.status;
+        return this.status === 'received';
       },
       //setter
       set: function() {
       }
-    }
-  },
-  watch: {
-    showModal: {
-      handler() {
-        if (this.status ==='received'){
-          this.displayStatus()
-        }
-      },
-      deep: true,
-      immediate: true
     }
   }
 }
