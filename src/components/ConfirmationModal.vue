@@ -9,8 +9,8 @@
   >
     <p>{{bookingMessage}}</p>
     <div>
-      <p>Clinic:</p>
-      <p>Clinic Address:</p>
+      <p>Clinic: {{selectedClinic.name}}</p>
+      <p>Clinic Address: {{selectedClinic.address}}</p>
       <p>Appointment: {{displayInfo.time}}</p>
       <p>Reference: {{displayInfo.requestid}}</p>
     </div>
@@ -50,6 +50,14 @@ export default {
     },
     displayInfo(){
       return this.booking.response;
+    },
+    selectedClinic : {
+      get: function () {
+        return this.getClinics.dentists.find(item => item.id === this.booking.request.dentistid)
+      }
+    },
+    getClinics(){
+      return this.$store.state.dentist
     }
   }
 }
