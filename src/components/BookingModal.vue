@@ -81,10 +81,10 @@ export default {
     onConfirm(){
       let bookingGenerator = new BookingGenerator()
       let publisher = new Publisher()
-      let subsciber = new Subscriber()
+      let subscriber = new Subscriber()
       let request = bookingGenerator.createRequest(this.selectedClinic, this.date, this.time)
       publisher.publishBookingRequest(request)
-      subsciber.subscribeToTopic(variables.RESPONSE_TOPIC + '/' + request.userid)
+      subscriber.subscribeToTopic(variables.RESPONSE_TOPIC + '/' + request.userid)
       this.hide()
     },
 

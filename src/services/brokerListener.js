@@ -3,13 +3,15 @@ import {variables} from "@/config/variables";
 import DentistController from "@/services/dentistController";
 import AvailabilityController from '@/services/availabilityController';
 import Subscriber from "./subscriber";
+import ResponseController from "@/services/responseController";
 
 export default class BrokerListener {
     constructor() {
     }
     listenForMessage() {
         let availabilityController = new AvailabilityController();
-        let subcriber = new Subscriber();
+        let subscriber = new Subscriber();
+        let responseController = new ResponseController()
         console.log(availabilityController.getCurrentClinicID())
         MQTT.on('message', function (topic, message) {
             if (topic === variables.DENTIST_TOPIC) {
@@ -21,7 +23,8 @@ export default class BrokerListener {
             }
             if (topic.substr(0,9) === 'response/') {
                 console.log(message)
-                subcriber.topicUnSubscriber(topic.toString())
+                subscriber.topicUnSubscriber(topic.toString())
+                responseController.checkResponse(message)
             }
         })
     }
