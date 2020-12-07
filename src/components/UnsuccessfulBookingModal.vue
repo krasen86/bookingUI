@@ -45,9 +45,14 @@ export default {
     getRequestDate(){
       let date = this.booking.request.time;
       let requestDate = {};
-      date = date.split(" ")
-      requestDate.date = date[0];
-      requestDate.time = date[1];
+      requestDate.date = ''
+      requestDate.time = '';
+      if (date) {
+        date = date?.split(" ")
+        requestDate.date = date[0];
+        requestDate.time = date[1];
+      }
+
 
      return requestDate
     },
