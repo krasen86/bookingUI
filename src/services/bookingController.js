@@ -15,7 +15,7 @@ export default class BookingController {
         if (responseObject.time){
             store.dispatch('booking/addBooking', responseObject);
         }else {
-            console.log("Booking failed");
+            store.dispatch('booking/addUnsuccessfulBooking', responseObject);
         }
 
     }

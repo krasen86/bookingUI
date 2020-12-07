@@ -3,6 +3,7 @@
     <ConfirmationModal/>
     <MapSidebar ref="MapSidebar"/>
     <Map/>
+    <UnsuccessfulBookingModal/>
   </div>
 </template>
 
@@ -10,13 +11,15 @@
 import Map from '@/components/Map.vue'
 import MapSidebar from '@/components/MapSidebar'
 import ConfirmationModal from '@/components/ConfirmationModal'
+import UnsuccessfulBookingModal from "@/components/UnsuccessfulBookingModal";
 
 export default {
   name: "Home",
   components: {
     Map: Map,
     MapSidebar: MapSidebar,
-    ConfirmationModal: ConfirmationModal
+    ConfirmationModal: ConfirmationModal,
+    UnsuccessfulBookingModal: UnsuccessfulBookingModal
   },
   methods: {
     initSidebar() {
