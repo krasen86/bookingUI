@@ -2,7 +2,6 @@ import {MQTT} from './mqtt';
 import {variables} from "@/config/variables";
 import DentistController from "@/services/dentistController";
 import AvailabilityController from '@/services/availabilityController';
-import Subscriber from "./subscriber";
 import BookingController from "@/services/bookingController";
 
 export default class BrokerListener {
