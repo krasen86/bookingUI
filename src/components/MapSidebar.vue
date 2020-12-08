@@ -36,9 +36,11 @@ export default {
   data() {
     let nextYearDate = new Date()
     nextYearDate.setFullYear(nextYearDate.getFullYear() + 1)
+    let statDate = new Date()
+    statDate.setDate(statDate.getDate() + 1)
     return {
       date: '',
-      minDate: new Date(Date.now()),
+      minDate: statDate,
       maxDate: nextYearDate,
       startDay: 1,
       sidebarCheck: false,
