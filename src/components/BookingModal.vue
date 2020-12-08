@@ -35,7 +35,7 @@
           </ValidationProvider>
           <!-- Button -->
           <div class="footer">
-            <b-button @click="hide()" type="primary" class="button-styling">Cancel</b-button>
+            <b-button @click="hide()" variant="secondary" type="reset" class="button-styling">Cancel</b-button>
             <b-button variant="info" type="submit" :disabled="invalid" class="button-styling">Confirm</b-button>
           </div>
         </form>

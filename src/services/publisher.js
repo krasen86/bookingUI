@@ -6,6 +6,6 @@ export default class Publisher {
     }
 
     publishBookingRequest(request){
-        MQTT.publish(variables.REQUEST_TOPIC, JSON.stringify(request), {/*retain:true*/});
+        MQTT.publish(variables.REQUEST_TOPIC, JSON.stringify(request), {qos:1});
     }
 }

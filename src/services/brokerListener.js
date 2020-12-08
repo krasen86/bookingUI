@@ -2,7 +2,6 @@ import {MQTT} from './mqtt';
 import {variables} from "@/config/variables";
 import DentistController from "@/services/dentistController";
 import AvailabilityController from '@/services/availabilityController';
-import Subscriber from "./subscriber";
 import BookingController from "@/services/bookingController";
 
 export default class BrokerListener {
@@ -10,7 +9,6 @@ export default class BrokerListener {
     }
     listenForMessage() {
         let availabilityController = new AvailabilityController();
-        let subscriber = new Subscriber();
         let bookingController = new BookingController()
         console.log(availabilityController.getCurrentClinicID())
         MQTT.on('message', function (topic, message) {
@@ -21,9 +19,7 @@ export default class BrokerListener {
             if (topic === variables.AVAILABILITY_TOPIC + "/" + availabilityController.getCurrentClinicID()) {
                 availabilityController.addAvailability(message);
             }
-            if (topic.substr(0,9) === 'response/') {
-                console.log(message)
-                subscriber.topicUnSubscriber(topic.toString())
+            if (topic === variables.RESPONSE_TOPIC + "/" + bookingController.getUserId()) {
                 bookingController.checkResponse(message)
             }
         })
