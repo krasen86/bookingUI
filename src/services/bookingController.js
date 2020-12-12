@@ -1,5 +1,5 @@
 import store from "../store";
-import BookingGenerator from "@/services/bookingGenerator";
+import bookingId from "@/services/bookingIdObtainer";
 import Publisher from "@/services/publisher";
 import Subscriber from "@/services/subscriber";
 import {variables} from "@/config/variables";
@@ -17,11 +17,17 @@ export default class BookingController {
         }else {
             store.dispatch('booking/addUnsuccessfulBooking', responseObject);
         }
-
     }
-    generateRequest(clinic, date, time){
-        let bookingGenerator = new BookingGenerator();
-        return bookingGenerator.createRequest(clinic, date, time);
+    async generateRequest(clinic, date, time, user){
+        return await bookingId.generateId(user).then(userID => {
+            return {
+                "userid": userID._id,
+                "requestid": userID.requestsIdCounter,
+                "dentistid": clinic.id,
+                "issuance": Date.now(),
+                "time": date + " " + time.split(" ", 1) //split the timeslot string and only keep start time.
+            };
+        });
     }
     sendRequest(request){
         let publisher = new Publisher()
