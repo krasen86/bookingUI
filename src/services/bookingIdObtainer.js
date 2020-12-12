@@ -1,4 +1,4 @@
-import { Api } from '@/Api'
+import { Api } from '@/api'
 
 class BookingIdObtainer {
     async generateId(user) {
