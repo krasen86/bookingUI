@@ -1,15 +1,23 @@
 <template>
-  <div id="mapContainer">
+  <div>
+    <MapAvailabilityPicker/>
+    <button @click="markerAvailability">BUTTON</button>
+    <div id="mapContainer">
+  </div>
   </div>
 </template>
 
 <script>
   import 'leaflet/dist/leaflet.css'
   import L, {Icon} from 'leaflet'
+  import MapAvailabilityPicker from "@/components/MapAvailabilityPicker";
 
   export default {
   name: "Map",
-  data() {
+    components: {
+      MapAvailabilityPicker
+    },
+    data() {
     return {
       myMap: Map,
       markerGroup: {}
@@ -30,7 +38,6 @@
   },
   mounted() {
     this.initiateMap();
-
     /* Setup to make markers show */
     delete Icon.Default.prototype._getIconUrl;
     Icon.Default.mergeOptions({
@@ -61,7 +68,7 @@
       for ( let i = 0; i < clinicList.length; i++) {
         let latitude = clinicList[i].coordinate.latitude;
         let longitude = clinicList[i].coordinate.longitude;
-        let marker = L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
+        let marker = L.marker([ longitude, latitude],{id: clinicList[i].id}).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
               this.$parent.initSidebar();
           if (this.$store.state.selected.selected.id !== undefined) {
@@ -70,11 +77,21 @@
           this.$store.dispatch('selected/selectClinic', clinicList[i]);
         }
         );
+        
         marker.bindPopup(clinicList[i].name);
         marker.on('mouseover',  () => {
           marker.openPopup();
         });
       }
+    },
+    markerAvailability() {
+      this.markerGroup.getLayers().find((e) => {
+        if(e.options.id === 1){
+          console.log(e.getLatLng().lat)
+          console.log(e.getLatLng().lng)
+          e.setLatLng([57.707619, 11.869388]).update()
+        }
+      })
     }
   }
 }

@@ -10,7 +10,6 @@ export default class BrokerListener {
     listenForMessage() {
         let availabilityController = new AvailabilityController();
         let bookingController = new BookingController()
-        console.log(availabilityController.getCurrentClinicID())
         MQTT.on('message', function (topic, message) {
             if (topic === variables.DENTIST_TOPIC) {
                 const dentistController = new DentistController();
@@ -21,6 +20,9 @@ export default class BrokerListener {
             }
             if (topic === variables.RESPONSE_TOPIC + "/" + bookingController.getUserId()) {
                 bookingController.checkResponse(message)
+            }
+            if(topic === variables.AVAILABILITY_PERCENTAGE_TOPIC + "/" + availabilityController.getCurrentDate()) {
+                availabilityController.addAvailabilityDate(message);
             }
         })
     }
