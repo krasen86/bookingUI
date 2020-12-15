@@ -77,7 +77,11 @@ export default {
       let clinic = this.selectedClinic
       let requestDate = this.date
       let requestTime = this.time
-      this.$store.dispatch('booking/createBookingRequest', {clinic, requestDate, requestTime})
+      let user = {};
+      user.email = this.email;
+      user.name = this.name;
+      user.phone = this.phone;
+      this.$store.dispatch('booking/createBookingRequest', {clinic, requestDate, requestTime, user})
       this.hide()
     }
   }

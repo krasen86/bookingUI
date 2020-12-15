@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bootstrap-vue": "^2.19.0",
+    "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "leaflet": "^1.7.1",
     "mqtt": "^4.2.5",
