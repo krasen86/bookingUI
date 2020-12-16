@@ -66,8 +66,8 @@
       let clinicList = this.clinics.dentists;
       this.markerGroup.clearLayers();
       for ( let i = 0; i < clinicList.length; i++) {
-        let latitude = clinicList[i].coordinate.latitude;
-        let longitude = clinicList[i].coordinate.longitude;
+        let latitude = clinicList[i].coordinate.longitude;
+        let longitude = clinicList[i].coordinate.latitude;
         let marker = L.marker([ longitude, latitude],{id: clinicList[i].id}).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
               this.$parent.initSidebar();
