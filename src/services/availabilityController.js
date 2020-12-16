@@ -1,7 +1,7 @@
 import store from "../store"
 import Subscriber from "@/services/subscriber";
 
-export default class DentistController {
+export default class AvailabilityController {
     constructor() {
     }
     getCurrentClinicID() {
@@ -20,5 +20,26 @@ export default class DentistController {
     unSubscribeAvailability(id) {
         let subscriber = new Subscriber();
         subscriber.topicUnSubscriber("availability/" + id);
+    }
+
+    //AVAILABILITY DATE
+
+    getCurrentDate(){
+        if (store.state.availability){
+            return store.state.availability.availabilityDate
+        }
+    }
+
+    subscribeAvailabilityDate(date){
+        let subscriber = new Subscriber();
+        subscriber.subscribeToTopic("availabilityDate/" + date)
+    }
+    addAvailabilityDate(message){
+        const buffer = message.toString('utf-8');
+        store.dispatch('availability/addAvailability', JSON.parse(buffer));
+    }
+    unSubscribeAvailabilityDate(date) {
+        let subscriber = new Subscriber();
+        subscriber.topicUnSubscriber("availabilityDate/" + date);
     }
 }

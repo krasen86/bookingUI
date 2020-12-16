@@ -1,18 +1,26 @@
 <template>
-  <div id="mapContainer">
+  <div>
+    <MapAvailabilityPicker/>
+    <div id="mapContainer">
+  </div>
   </div>
 </template>
 
 <script>
   import 'leaflet/dist/leaflet.css'
   import L, {Icon} from 'leaflet'
+  import MapAvailabilityPicker from "@/components/MapAvailabilityPicker";
 
   export default {
   name: "Map",
-  data() {
+    components: {
+      MapAvailabilityPicker
+    },
+    data() {
     return {
       myMap: Map,
-      markerGroup: {}
+      markerGroup: {},
+      loaded: false
     }
   },
   computed: {
@@ -30,7 +38,6 @@
   },
   mounted() {
     this.initiateMap();
-
     /* Setup to make markers show */
     delete Icon.Default.prototype._getIconUrl;
     Icon.Default.mergeOptions({
@@ -38,7 +45,7 @@
       iconUrl: require('leaflet/dist/images/marker-icon.png'),
       shadowUrl: require('leaflet/dist/images/marker-shadow.png')
     });
-
+    this.loaded = true
   },
   methods: {
     initiateMap() {
@@ -59,9 +66,9 @@
       let clinicList = this.clinics.dentists;
       this.markerGroup.clearLayers();
       for ( let i = 0; i < clinicList.length; i++) {
-        let longitude = clinicList[i].coordinate.latitude;
         let latitude = clinicList[i].coordinate.longitude;
-        let marker = L.marker([ longitude, latitude]).addTo(this.markerGroup).on('click', (e) => {
+        let longitude = clinicList[i].coordinate.latitude;
+        let marker = L.marker([ longitude, latitude],{id: clinicList[i].id}).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
               this.$parent.initSidebar();
           if (this.$store.state.selected.selected.id !== undefined) {
@@ -70,11 +77,40 @@
           this.$store.dispatch('selected/selectClinic', clinicList[i]);
         }
         );
+        
         marker.bindPopup(clinicList[i].name);
         marker.on('mouseover',  () => {
           marker.openPopup();
         });
       }
+    },
+    markAvailability(id, value) {
+      let idNumber = parseInt(id.split("id")[1]);
+      const greenIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+      const redIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+      this.markerGroup.getLayers().find((e) => {
+        if(e.options.id === idNumber){
+          if(value){
+            e.setIcon(greenIcon).update()
+          }else{
+            e.setIcon(redIcon).update()
+          }
+        }
+      })
     }
   }
 }
