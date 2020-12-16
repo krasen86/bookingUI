@@ -1,7 +1,6 @@
 <template>
   <div>
     <MapAvailabilityPicker/>
-    <button @click="markerAvailability">BUTTON</button>
     <div id="mapContainer">
   </div>
   </div>
@@ -20,7 +19,8 @@
     data() {
     return {
       myMap: Map,
-      markerGroup: {}
+      markerGroup: {},
+      loaded: false
     }
   },
   computed: {
@@ -45,7 +45,7 @@
       iconUrl: require('leaflet/dist/images/marker-icon.png'),
       shadowUrl: require('leaflet/dist/images/marker-shadow.png')
     });
-
+    this.loaded = true
   },
   methods: {
     initiateMap() {
@@ -84,12 +84,31 @@
         });
       }
     },
-    markerAvailability() {
+    markAvailability(id, value) {
+      let idNumber = parseInt(id.split("id")[1]);
+      const greenIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+      const redIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
       this.markerGroup.getLayers().find((e) => {
-        if(e.options.id === 1){
-          console.log(e.getLatLng().lat)
-          console.log(e.getLatLng().lng)
-          e.setLatLng([57.707619, 11.869388]).update()
+        if(e.options.id === idNumber){
+          if(value){
+            e.setIcon(greenIcon).update()
+          }else{
+            e.setIcon(redIcon).update()
+          }
         }
       })
     }

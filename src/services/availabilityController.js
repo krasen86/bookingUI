@@ -36,9 +36,6 @@ export default class AvailabilityController {
     }
     addAvailabilityDate(message){
         const buffer = message.toString('utf-8');
-        console.log(message)
-        console.log(buffer)
-        console.log(JSON.parse(buffer))
         store.dispatch('availability/addAvailability', JSON.parse(buffer));
     }
     unSubscribeAvailabilityDate(date) {

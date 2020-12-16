@@ -1,7 +1,15 @@
 <template>
   <div>
-    <b-datepicker class="datepicker" v-model="date" :start-weekday="startDay" locale="en-us" :min="minDate" :max="maxDate" @input="getDateAvailability(date)"></b-datepicker>
-    <p>{{this.date}}</p>
+    <b-datepicker
+        class="datepicker"
+        placeholder="Select date to see available dentists for the day"
+        v-model="date"
+        :start-weekday="startDay"
+        locale="en-us"
+        :min="minDate"
+        :max="maxDate"
+        @input="getDateAvailability(date)"
+    />
   </div>
 </template>
 
@@ -24,7 +32,7 @@ export default {
   watch: {
     dateAvailability: {
       handler() {
-        console.log("This works")
+        this.checkTimeslotResponse();
       },
       deep: true,
       immediate:true
@@ -37,7 +45,19 @@ export default {
   },
   methods: {
     getDateAvailability(date){
+      this.$store.dispatch('availability/removeAvailability', this.$store.state.availability.availabilityDate)
       this.$store.dispatch('availability/selectDate', date)
+    },
+    checkTimeslotResponse() {
+      if (Object.values(this.$store.state.availability.availability).length !== 0 && this.date) {
+        for (let key in this.$store.state.availability.availability) {
+          let id = key;
+          let value = this.$store.state.availability.availability[key];
+          this.$parent.markAvailability(id, value);
+        }
+      }else if (this.$parent.loaded){
+        this.$parent.setDentistMarkers()
+      }
     }
   }
 }
@@ -46,7 +66,5 @@ export default {
 </script>
 
 <style scoped>
-.datepicker{
-  z-index: 1000;
-}
+
 </style>

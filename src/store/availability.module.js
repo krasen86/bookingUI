@@ -3,11 +3,12 @@ import AvailabilityController from "@/services/availabilityController";
 export const availability = {
     state:  () => ({
         availabilityDate: {},
+        availability: {}
     }),
     namespaced: true,
     getters: {
         getAvailability(state) {
-            return state.availabilityDate
+            return state.availability
         }
     },
     actions: {
@@ -21,7 +22,7 @@ export const availability = {
         },
         removeAvailability({commit}, date){
             let availabilityController = new AvailabilityController();
-            availabilityController.unSubscribeAvailability(date);
+            availabilityController.unSubscribeAvailabilityDate(date);
             commit('availabilityRemoved')
         }
     },
@@ -30,7 +31,7 @@ export const availability = {
             state.availabilityDate = date
         },
         availabilityAdded(state, availability){
-            state.availability = availability.availabilityDate;
+            state.availability = availability;
         },
         availabilityRemoved(state) {
             state.availability = {}
