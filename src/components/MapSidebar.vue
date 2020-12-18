@@ -72,7 +72,12 @@ export default {
     displayTimeSlots() {
       if (this.$store.state.selected.selected.availability && this.date) {
         let dateIndex = this.$store.state.selected.selected.availability.findIndex(obj => obj.date === this.date)
-        this.timeSlots = this.$store.state.selected.selected.availability[dateIndex].timeslots
+        if (this.$store.state.selected.selected.availability[dateIndex]) {
+          this.timeSlots = this.$store.state.selected.selected.availability[dateIndex].timeslots
+        }
+        else {
+          this.timeSlots = []
+        }
       }
     },
     openModal(date, time) {
