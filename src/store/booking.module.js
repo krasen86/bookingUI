@@ -5,7 +5,8 @@ export const booking = {
         booking: {
             response: {},
             request: {},
-            status: {}
+            status: {},
+            error: {}
         },
     }),
     namespaced: true,
@@ -24,6 +25,8 @@ export const booking = {
             request.then(payload => {
                 bookingController.sendRequest(payload)
                 commit('bookingRequestAdded', payload)
+            }, error =>{
+                commit('bookingRequestNotGenerated', error)
             })
         },
         // successful response
@@ -54,6 +57,10 @@ export const booking = {
         },
         statusChanged(state, newStatus) {
             state.booking.status = newStatus;
+            state.booking.error = {}
+        },
+        bookingRequestNotGenerated(state, error) {
+            state.booking.error = error;
         }
     }
 }
