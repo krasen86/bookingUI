@@ -1,14 +1,14 @@
 import AvailabilityController from '@/services/availabilityController'
 import Vue from 'vue'
 
-export const selected = {
+export const selectedClinic = {
     state:  () => ({
-        selected: {},
+        clinic: {},
     }),
     namespaced: true,
     getters: {
         getAvailability(state) {
-            return state.selected.availability
+            return state.clinic.availability
         }
     },
     actions: {
@@ -29,13 +29,13 @@ export const selected = {
     },
     mutations: {
         dentistSelected(state, clinic){
-            state.selected = clinic;
+            state.clinic = clinic;
         },
         availabilityAdded(state, availability) {
-            Vue.set(state.selected, 'availability', availability)
+            Vue.set(state.clinic, 'availability', availability)
         },
         clinicRemoved(state) {
-            state.selected = {}
+            state.clinic = {}
         }
     }
 }

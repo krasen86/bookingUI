@@ -5,13 +5,13 @@ export default class AvailabilityController {
     constructor() {
     }
     getCurrentClinicID() {
-        if (store.state.selected.selected){
-            return store.state.selected.selected.id
+        if (store.state.selectedClinic.clinic){
+            return store.state.selectedClinic.clinic.id
         }
     }
     addAvailability(message) {
         const buffer = message.toString('utf-8');
-        store.dispatch('selected/addAvailability', JSON.parse(buffer));
+        store.dispatch('selectedClinic/addAvailability', JSON.parse(buffer));
     }
     subscribeAvailability() {
         let subscriber = new Subscriber();

@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     selectedClinic() {
-      return this.$store.state.selected.selected
+      return this.$store.state.selectedClinic.clinic
     }
   },
   methods: {
