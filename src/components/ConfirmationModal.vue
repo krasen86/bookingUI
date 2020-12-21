@@ -53,11 +53,8 @@ export default {
     },
     selectedClinic : {
       get: function () {
-        return this.booking.request.dentistid ? this.getClinics.dentists.find(item => item.id === this.booking.request.dentistid) : ""
+        return this.booking.request.dentistid ? this.booking.request.clinic : ""
       }
-    },
-    getClinics(){
-      return this.$store.state.dentist
     }
   }
 }
