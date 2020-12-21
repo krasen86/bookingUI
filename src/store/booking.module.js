@@ -24,7 +24,10 @@ export const booking = {
             let request = bookingController.generateRequest(clinic, requestDate, requestTime, user)
             request.then(payload => {
                 bookingController.sendRequest(payload)
-                commit('bookingRequestAdded', payload)
+                let newRequest = {}
+                newRequest = payload;
+                newRequest.clinic = clinic;
+                commit('bookingRequestAdded', newRequest)
             }, error =>{
                 commit('bookingRequestNotGenerated', error)
             })
