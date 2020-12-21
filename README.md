@@ -1,5 +1,9 @@
 # Dentistimo bookingUI 
 
+## Link to main documentation repository
+
+- [Documentation repositoy](https://git.chalmers.se/courses/dit355/2020/group-2/documentation)
+
 ## Project setup
 
 ### Prerequisites
@@ -18,16 +22,19 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
+cd src
 npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
+cd src
 npm run build
 ```
 
 ### Lints and fixes files
 ```
+cd src
 npm run lint
 ```
 
