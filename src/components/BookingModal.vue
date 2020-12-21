@@ -26,7 +26,7 @@
             </div>
           </ValidationProvider>
           <!-- Phone -->
-          <ValidationProvider name="phone" rules="required|alpha_num" v-slot="{ errors }">
+          <ValidationProvider name="phone" rules="required|numeric" v-slot="{ errors }">
             <div class="form-group">
               <label for="phone">Phone</label>
               <input name ="phone" id="phone" type="text" class="form-control" v-model="phone"/>
