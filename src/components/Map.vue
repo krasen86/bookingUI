@@ -66,15 +66,15 @@
       let clinicList = this.clinics.dentists;
       this.markerGroup.clearLayers();
       for ( let i = 0; i < clinicList.length; i++) {
-        let latitude = clinicList[i].coordinate.longitude;
-        let longitude = clinicList[i].coordinate.latitude;
-        let marker = L.marker([ longitude, latitude],{id: clinicList[i].id}).addTo(this.markerGroup).on('click', (e) => {
+        let longitude = clinicList[i].coordinate.longitude;
+        let latitude = clinicList[i].coordinate.latitude;
+        let marker = L.marker([ latitude, longitude],{id: clinicList[i].id}).addTo(this.markerGroup).on('click', (e) => {
               console.log(e.latlng);
               this.$parent.initSidebar();
-          if (this.$store.state.selected.selected.id !== undefined) {
-            this.$store.dispatch('selected/removeClinic', this.$store.state.selected.selected.id);
+          if (this.$store.state.selectedClinic.clinic.id !== undefined) {
+            this.$store.dispatch('selectedClinic/removeClinic', this.$store.state.selectedClinic.clinic.id);
           }
-          this.$store.dispatch('selected/selectClinic', clinicList[i]);
+          this.$store.dispatch('selectedClinic/selectClinic', clinicList[i]);
         }
         );
         

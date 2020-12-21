@@ -59,21 +59,21 @@ export default {
   },
   computed: {
     selectedClinic(){
-      return this.$store.state.selected.selected
+      return this.$store.state.selectedClinic.clinic
     },
     clinicAvailability(){
-      return this.$store.getters["selected/getAvailability"]
+      return this.$store.getters["selectedClinic/getAvailability"]
     },
     openingHours() {
-      return this.selectedClinic.openinghours ? this.$store.state.selected.selected.openinghours : 'Not Available';
+      return this.selectedClinic.openinghours ? this.$store.state.selectedClinic.clinic.openinghours : 'Not Available';
     }
   },
   methods: {
     displayTimeSlots() {
-      if (this.$store.state.selected.selected.availability && this.date) {
-        let dateIndex = this.$store.state.selected.selected.availability.findIndex(obj => obj.date === this.date)
-        if (this.$store.state.selected.selected.availability[dateIndex]) {
-          this.timeSlots = this.$store.state.selected.selected.availability[dateIndex].timeslots
+      if (this.$store.state.selectedClinic.clinic.availability && this.date) {
+        let dateIndex = this.$store.state.selectedClinic.clinic.availability.findIndex(obj => obj.date === this.date)
+        if (this.$store.state.selectedClinic.clinic.availability[dateIndex]) {
+          this.timeSlots = this.$store.state.selectedClinic.clinic.availability[dateIndex].timeslots
         }
         else {
           this.timeSlots = []
