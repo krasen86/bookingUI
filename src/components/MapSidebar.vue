@@ -14,7 +14,7 @@
       </b-row>
       <b-calendar v-model="date" :min="minDate" :start-weekday="startDay" :max="maxDate"  v-on:selected="displayTimeSlots()" locale="en-us"></b-calendar>
       <div id="timeContainer" v-if="timeSlots" class="container">
-        <b-button @click="openModal(date,Object.keys(time)[0])" v-for="(time, index) in timeSlots" :key="index" class="timeButton" :disabled=checkIfAvailable(time)>{{Object.keys(time)[0]}}</b-button>
+        <b-button @click="openModal(date, timeslot.time)" v-for="(timeslot, index) in timeSlots" :key="index" class="timeButton" :disabled=checkIfAvailable(timeslot)>{{timeslot.time}}</b-button>
       </div>
       </b-container>
   </b-sidebar>
@@ -59,24 +59,24 @@ export default {
   },
   computed: {
     selectedClinic(){
-      return this.$store.state.selected.selected
+      return this.$store.state.selectedClinic.clinic
     },
     clinicAvailability(){
-      return this.$store.getters["selected/getAvailability"]
+      return this.$store.getters["selectedClinic/getAvailability"]
     },
     openingHours() {
-      return this.selectedClinic.openinghours ? this.$store.state.selected.selected.openinghours : 'Not Available';
+      return this.selectedClinic.openinghours ? this.$store.state.selectedClinic.clinic.openinghours : 'Not Available';
     }
   },
   methods: {
     displayTimeSlots() {
-      this.timeSlots = {};
-      if (this.$store.state.selected.selected.availability && this.date) {
-        for (let i = 0; i < this.$store.state.selected.selected.availability.length; i += 1) {
-          let tempSlots = this.$store.state.selected.selected.availability[i];
-          if (tempSlots[this.date] !== undefined ){
-            this.timeSlots = tempSlots[this.date];
-          }
+      if (this.$store.state.selectedClinic.clinic.availability && this.date) {
+        let dateIndex = this.$store.state.selectedClinic.clinic.availability.findIndex(obj => obj.date === this.date)
+        if (this.$store.state.selectedClinic.clinic.availability[dateIndex]) {
+          this.timeSlots = this.$store.state.selectedClinic.clinic.availability[dateIndex].timeslots
+        }
+        else {
+          this.timeSlots = []
         }
       }
     },
@@ -86,9 +86,8 @@ export default {
     showSidebar(){
       this.sidebarCheck = true
     },
-    checkIfAvailable(time) {
-      let valuesArray = Object.values(time);
-      return !(valuesArray[0] > 0)
+    checkIfAvailable(timeslot) {
+      return !(timeslot.availableDentists > 0)
     }
   }
 }

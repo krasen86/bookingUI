@@ -3,7 +3,8 @@ export const variables = {
     DENTIST_TOPIC: 'dentists',
     AVAILABILITY_TOPIC: 'availability',
     REQUEST_TOPIC: 'request',
-    RESPONSE_TOPIC: 'response'
+    RESPONSE_TOPIC: 'response',
+    AVAILABILITY_PERCENTAGE_TOPIC: 'availabilityDate'
 }
 
 

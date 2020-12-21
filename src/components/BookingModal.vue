@@ -10,7 +10,7 @@
       <ValidationObserver v-slot="{ invalid }">
         <form class="form-styling" @submit.prevent="onConfirm">
           <!-- Name -->
-          <ValidationProvider name="name" rules="required|alpha" v-slot="{ errors }">
+          <ValidationProvider name="name" rules="required|alpha_spaces" v-slot="{ errors }">
             <div class="form-group">
               <label for="name">Name</label>
               <input name="name" id="name" type="text" class="form-control" v-model="name"/>
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     selectedClinic() {
-      return this.$store.state.selected.selected
+      return this.$store.state.selectedClinic.clinic
     }
   },
   methods: {

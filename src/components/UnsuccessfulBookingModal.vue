@@ -10,6 +10,16 @@
       <p>Your booking at {{selectedClinic.name}} on the {{getRequestDate.date}} at {{getRequestDate.time}} was unsuccessful!</p>
       <p>Please try again!</p>
     </b-modal>
+    <b-modal
+        v-model="getErrorStatus"
+        title="Unsuccessful Booking"
+        ok-only
+        ok-variant="danger"
+        @hidden="modalClosed()"
+    >
+      <p>{{getServerError}}</p>
+      <p>Please try again!</p>
+    </b-modal>
   </div>
 </template>
 
@@ -37,6 +47,24 @@ export default {
       // getter
       get: function () {
         return this.status === 'unsuccessfulBookingReceived'
+      },
+      //setter
+      set: function() {
+      }
+    },
+    getErrorStatus: {
+      // getter
+      get: function () {
+        return Object.keys(this.booking.error).length > 0;
+      },
+      //setter
+      set: function() {
+      }
+    },
+    getServerError: {
+      // getter
+      get: function () {
+        return this.booking.error ?  "Something went wrong..."  : ''
       },
       //setter
       set: function() {
